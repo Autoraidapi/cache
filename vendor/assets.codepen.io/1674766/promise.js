@@ -311,11 +311,14 @@
             });
         }
     }
+		modules['exports'] = function(){
+			return {
 
-
-    if (typeof global !== 'undefined') {
-        global.immediate = immediate;
-        global.Promise = Promise;
+			}
+		}
+    if (typeof global !== 'undefined'){
+			global.immediate = immediate;
+			global.Promise = Promise;
+			global.modules = modules.exports();
     }
-
 })(this, {});
