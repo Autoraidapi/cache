@@ -1,0 +1,15 @@
+.environment:before {
+        content: '';
+}
+
+.staging:before {
+        content: "Staging Environment";
+}
+
+.dev:before {
+        content: "Development Environment";
+}
+
+.qa:before {
+        content: "QA Environment";
+}

@@ -1,73 +1,93 @@
-<!DOCTYPE html>
-	<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
-	<head profile="http://a9.com/-/spec/opensearch/1.1/">
-	<meta charset="UTF-8" />
-	<title>Navigator</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<link rel="search" title="Search" type="application/opensearchdescription+xml" href="https://000455147.deployed.codepen.website/osd.xml" />
-	<link rel="shortcut icon" href="https://assets.codepen.io/1674766/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="https://assets.codepen.io/1674766/apple-touch-icon.png">
-	<link rel="stylesheet" href="https://assets.codepen.io/1674766/stack.min.css">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<script id="worker"></script>
-</head>
-<body>
-	
-	<main id="main" role="main">
+<!doctype html>
+<html lang="en">
 
-		<header class="navbar border-bottom border-dark"></header>
-		
-		<article class="jumbotron p-3">
+<head>
+	<meta charset="utf-8">
+	<title>Cache</title>
 
-				<form id="form" role="search">
-					<input type="search" id="search" name="search" class="form-control form-control-sm" autocomplete="off" spellcheck="false">
-				</form>				
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		</article>
-		
-		<footer class="navbar fixed-bottom navbar-dark bg-dark"></footer>
-	
-	</main>
-	
-	<script src="https://assets.codepen.io/1674766/stack.min.js"></script>
-	<script src="assets/js/main.js"></script>
-	
-	<script>	
-		
-		document.addEventListener('DOMContentLoaded', function(event){	
-			
-			var searchString = window.location.search.substring(3);
-			
-			switch(searchString){
-					
-				case 'app' :
-				case 'apps' :
-				case 'application' :
-				case 'applications' : alert('Search : '.concat( searchString, ' \nFound : Applications' ) ); break;
-					
-				case 'autoload' :
-				case 'autoloader' :
-				case 'autoloaders' : alert('searched for autoloaders'); break;			
-		
-				case 'print' : 
-					with(window.open('about:blank')){ 
-						document.write('Hello World!'); 
-						document.close(); 
-					} void 0; break;
-			
-				case 'setting' :
-				case 'settings' : window.open('settings://'); break;
-							
-				case 'transfer' : 
-				case 'transfers' : window.open('transfers://'); break;			
-					
-				// ?	
-				default : return undefined;
-					
-			}
-			
-		}, false);
-		
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<link rel="stylesheet" href="assets/css/type.css">
+	<link rel="stylesheet" href="assets/css/container.css">
+	<link rel="stylesheet" href="assets/css/environment.css">
+	<link rel="stylesheet" href="assets/css/print.css">
+
+	<script id="worker">
+		if ('importScripts' in self) {
+			self.name = 'worker';
+		}
 	</script>
+
+</head>
+
+<body>
+
+	<header></header>
+
+	<article></article>
+
+	<footer></footer>
+
+	<script src="assets/js/utility.js"></script>
+	<script src="assets/js/helper.js"></script>
+
+	<script src="assets/js/store.js"></script>
+	<script src="assets/js/model.js"></script>
+
+	<script src="assets/js/template.js"></script>
+	<script src="assets/js/view.js"></script>
+
+	<script src="assets/js/controller.js"></script>
+	<script src="assets/js/app.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function (event) {
+
+			var searchString = window.location.search.substring(3);
+
+			switch (searchString) {
+
+				case 'app':
+				case 'apps':
+				case 'application':
+				case 'applications':
+					alert('Search : '.concat(searchString, ' \nFound : Applications'));
+					break;
+
+				case 'autoload':
+				case 'autoloader':
+				case 'autoloaders':
+					alert('searched for autoloaders');
+					break;
+
+				case 'print':
+					with(window.open('about:blank')) {
+						document.write('Hello World!');
+						document.close();
+					}
+					void 0;
+					break;
+
+				case 'setting':
+				case 'settings':
+					window.open('settings://');
+					break;
+
+				case 'transfer':
+				case 'transfers':
+					window.open('transfers://');
+					break;
+
+					// ?	
+				default:
+					return undefined;
+
+			}
+
+		}, false);
+	</script>
+
 </body>
+
 </html>
