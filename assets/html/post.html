@@ -1,244 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>Post</title>
-	
-	<meta name="referrer" content="origin" />
-	
-	<script type="text/worker">
-	
-		self.postMessage = self.webkitPostMessage || self.postMessage;
-		
-		function Message(value) {
-		    this.value = value;
-		};
-		
-		function escaped(value) {
-		    return String(value)
-		        .replace(/\\"/g, '"')
-		        .replace(/&/g, "&amp;")
-		        .replace(/"/g, "&quot;")
-		        .replace(/'/g, "&#39;")
-		        .replace(/</g, "&lt;")
-		        .replace(/>/g, "&gt;");
-		}
-		
-		function toSource(func) {
-		    if (func != null) {
-		        try {
-		            return Function.prototype.toString.call(func);
-		        } catch (e) {}
-		        try {
-		            return func + "";
-		        } catch (e) {}
-		    }
-		    return "";
-		}
-		
-		function isFunction(obj) {
-		    return !!(obj && obj.constructor && obj.call && obj.apply);
-		}
-		
-		function isRegExp(obj) {
-		    return !!(
-		        obj &&
-		        obj.test &&
-		        obj.exec &&
-		        (obj.ignoreCase || obj.ignoreCase === false)
-		    );
-		}
-		
-		function isDate(obj) {
-		    return !!(obj && obj.getTimezoneOffset && obj.setUTCFullYear);
-		}
-		
-		function isObject(obj) {
-		    return obj === Object(obj);
-		}
-		
-		function isString(obj) {
-		    return !!(obj === "" || (obj && obj.charCodeAt && obj.substr));
-		}
-		
-		function isBoolean(obj) {
-		    return obj === true || obj === false;
-		}
-		
-		function isNumber(obj) {
-		    return !!(obj === 0 || (obj && obj.toExponential && obj.toFixed));
-		}
-		
-		function isNull(obj) {
-		    return obj === null;
-		}
-		
-		function isUndefined(obj) {
-		    return obj === void 0;
-		}
-		
-		function span(options) {
-		    options = options || {};
-		    const prefix = '<span class="';
-		    const suffix = '">';
-		    const tail = "</span>";
-		    return prefix
-		        .concat(options.class)
-		        .concat(suffix)
-		        .concat(options.value)
-		        .concat(tail);
-		}
-		
-		function evaluator(string) {
-		    var result;
-		    try {
-		        result = eval.call(this, string);
-		        if (isFunction(result)) {
-		            result = span({
-		                class: "function",
-		                value: toSource(result)
-		            });
-		        } else if (isRegExp(result)) {
-		            result = span({
-		                class: "regexp",
-		                value: new RegExp(result).toString()
-		            });
-		        } else if (isDate(result)) {
-		            result = span({
-		                class: "date",
-		                value: "".concat(result, "")
-		            });
-		        } else if (isObject(result)) {
-		            result = span({
-		                class: "object",
-		                value: "".concat(result, "")
-		            });
-		        } else if (isString(result)) {
-		            result = span({
-		                class: "string",
-		                value: "".concat(result, "")
-		            });
-		        } else if (isNumber(result)) {
-		            result = span({
-		                class: "number",
-		                value: "".concat(result, "")
-		            });
-		        } else if (isBoolean(result)) {
-		            result = span({
-		                class: "boolean",
-		                value: "".concat(result, "")
-		            });
-		        } else if (isUndefined(result)) {
-		            result = span({
-		                class: "undefined",
-		                value: "".concat(result, "")
-		            });
-		        } else if (isNull(result)) {
-		            result = span({
-		                class: "null",
-		                value: "".concat(result, "")
-		            });
-		        }
-		    } catch (er) {
-		        if (er instanceof TypeError) {
-		            result = span({
-		                class: "type-error",
-		                value: "[[ Type ".concat("]] ", er.message)
-		            }).concat(er.message);
-		        } else if (er instanceof SyntaxError) {
-		            result = span({
-		                class: "syntax-error",
-		                value: "[[ Syntax ".concat("]] ")
-		            }).concat(er.message);
-		        } else if (er instanceof ReferenceError) {
-		            result = span({
-		                class: "reference-error",
-		                value: "[[ Reference ".concat("]] ")
-		            }).concat(er.message);
-		        } else if (er instanceof RangeError) {
-		            result = span({
-		                class: "range-error",
-		                value: "[[ Range ".concat("]] ")
-		            }).concat(er.message);
-		        } else if (er instanceof EvalError) {
-		            result = span({
-		                class: "eval-error",
-		                value: "[[ Eval ".concat("]] ")
-		            }).concat(er.message);
-		        } else {
-		            result = escaped(er.stack);
-		        }
-		    } finally {
-		        return new Message(result);
-		    }
-		}
-		
-		self.addEventListener('message', function(event){
-			const blob = new Blob([event.data], { type : '' });
-			const reader = new FileReader();
-			reader.addEventListener('load', function(event){
-						// parse the json array from the blob
-						// each
-						// json
-						// object
-						// interpolate
-						// value
-						// return 		
-			}, false);			
-			
-			reader.readAsBinaryString(blob);
-		
-		}, false);
-		
-</script>	
-</head>
-<body>
-	
-	<script>
-		
-		var port2;
-		
-		document.addEventListener('DOMContentLoaded', function(event){	
-		
-		}, false);
-		
-		window.addEventListener('load', function(){
-			
-			const request = new XMLHttpRequest();
-			const worker = new Worker(
-				URL.createObjectURL(
-					new Blob(
-						['self.onmessage=function(event){postMessage(event.data, [event.data]);}'],{type:'text/javascript'}	
-					)
-				)
-			);
-			
-			const composite = 'data:application/json, '.concat( encodeURIComponent ( JSON.stringify([
-				/* mock data */
-				{0:null}
-			]) ) );
-			
-			worker.addEventListener('message', function(event){
-				console.log(event.data);
-			});			
-			request.addEventListener('readystatechange', function(){
-				console.log(this.getAllResponseHeaders());
-			}, false);
-			request.addEventListener('load', function(){
-				worker.postMessage(this.response, [this.response]);		
-			}, false);
 
-			request.open('GET',  composite, true);
-			request.responseType = 'arraybuffer';
-			request.send(null);
-			
-		}, false);
-		
-		window.addEventListener('message', function(event){
-		
-		}, false);
-		
-	</script>
-	
+<head>
+    <meta charset="UTF-8" />
+    <title>Post</title>
+
+    <meta name="referrer" content="origin" />
+
+    <script id="worker">
+        self.postMessage = self.webkitPostMessage || self.postMessage;
+
+        function escaped(value) {
+            return String(value)
+                .replace(/\\"/g, '"')
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        function toSource(func) {
+            if (func != null) {
+                try {
+                    return Function.prototype.toString.call(func);
+                } catch (e) {}
+                try {
+                    return func + "";
+                } catch (e) {}
+            }
+            return "";
+        }
+
+        function toProps(object) {
+            var resultSet = {};
+            for (var o = object; o; o = o.__proto__) {
+                try {
+                    var names = Object.getOwnPropertyNames(o);
+                    for (var i = 0; i < names.length; ++i) resultSet[names[i]] = typeof object[names[i]];
+                } catch (e) {}
+            }
+            return JSON.stringify(resultSet, null, 2);
+        }
+
+        function isFunction(obj) {
+            return !!(obj && obj.constructor && obj.call && obj.apply);
+        }
+
+        function isRegExp(obj) {
+            return !!(
+                obj &&
+                obj.test &&
+                obj.exec &&
+                (obj.ignoreCase || obj.ignoreCase === false)
+            );
+        }
+
+        function isDate(obj) {
+            return !!(obj && obj.getTimezoneOffset && obj.setUTCFullYear);
+        }
+
+        function isObject(obj) {
+            var type = typeof obj;
+            return type === 'function' || type === 'object' && !!obj;
+        };
+
+        function isString(obj) {
+            return !!(obj === "" || (obj && obj.charCodeAt && obj.substr));
+        }
+
+        function isBoolean(obj) {
+            return obj === true || obj === false;
+        }
+
+        function isNumber(obj) {
+            return !!(obj === 0 || (obj && obj.toExponential && obj.toFixed));
+        }
+
+        function isNull(obj) {
+            return obj === null;
+        }
+
+        function isUndefined(obj) {
+            return obj === void 0;
+        }
+
+        function span(options) {
+            options = options || {};
+            const prefix = '<span class="';
+            const suffix = '">';
+            const tail = "</span>";
+            return prefix
+                .concat(options.class)
+                .concat(suffix)
+                .concat(options.value)
+                .concat(tail);
+        }
+
+        function Message(value) {
+            this.value = value;
+        };
+
+        function evaluator(string) {
+            var result;
+            try {
+                result = eval.call(this, string);
+                if (isFunction(result)) {
+                    result = span({
+                        class: "function",
+                        value: toSource(result)
+                    });
+                } else if (isRegExp(result)) {
+                    result = span({
+                        class: "regexp",
+                        value: new RegExp(result).toString()
+                    });
+                } else if (isDate(result)) {
+                    result = span({
+                        class: "date",
+                        value: "".concat(result, "")
+                    });
+                } else if (isObject(result)) {
+                    result = span({
+                        class: "object",
+                        value: toProps(result)
+                    });
+                } else if (isString(result)) {
+                    result = span({
+                        class: "string",
+                        value: "".concat(result, "")
+                    });
+                } else if (isNumber(result)) {
+                    result = span({
+                        class: "number",
+                        value: "".concat(result, "")
+                    });
+                } else if (isBoolean(result)) {
+                    result = span({
+                        class: "boolean",
+                        value: "".concat(result, "")
+                    });
+                } else if (isUndefined(result)) {
+                    result = span({
+                        class: "undefined",
+                        value: "".concat(result, "")
+                    });
+                } else if (isNull(result)) {
+                    result = span({
+                        class: "null",
+                        value: "".concat(result, "")
+                    });
+                }
+            } catch (er) {
+                if (er instanceof TypeError) {
+                    result = span({
+                        class: "type-error",
+                        value: "[[ Type ".concat("]] ", er.message)
+                    }).concat(er.message);
+                } else if (er instanceof SyntaxError) {
+                    result = span({
+                        class: "syntax-error",
+                        value: "[[ Syntax ".concat("]] ")
+                    }).concat(er.message);
+                } else if (er instanceof ReferenceError) {
+                    result = span({
+                        class: "reference-error",
+                        value: "[[ Reference ".concat("]] ")
+                    }).concat(er.message);
+                } else if (er instanceof RangeError) {
+                    result = span({
+                        class: "range-error",
+                        value: "[[ Range ".concat("]] ")
+                    }).concat(er.message);
+                } else if (er instanceof EvalError) {
+                    result = span({
+                        class: "eval-error",
+                        value: "[[ Eval ".concat("]] ")
+                    }).concat(er.message);
+                } else {
+                    result = escaped(er.stack);
+                }
+            } finally {
+                return new Message(result);
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <script>
+        var port2;
+
+        document.addEventListener('DOMContentLoaded', function (event) {
+
+        }, false);
+
+        window.addEventListener('load', function () {
+
+            const request = new XMLHttpRequest();
+            const worker = new Worker(
+                URL.createObjectURL(
+                    new Blob(
+                        ['self.onmessage=function(event){postMessage(event.data, [event.data]);}'], {
+                            type: 'text/javascript'
+                        }
+                    )
+                )
+            );
+
+            const composite = 'data:application/json, '.concat(encodeURIComponent(JSON.stringify([
+                /* mock data */
+                {
+                    0: null
+                }
+            ])));
+
+            worker.addEventListener('message', function (event) {
+                console.log(event.data);
+            });
+            request.addEventListener('readystatechange', function () {
+                console.log(this.getAllResponseHeaders());
+            }, false);
+            request.addEventListener('load', function () {
+                worker.postMessage(this.response, [this.response]);
+            }, false);
+
+            request.open('GET', composite, true);
+            request.responseType = 'arraybuffer';
+            request.send(null);
+
+        }, false);
+
+        window.addEventListener('message', function (event) {
+
+        }, false);
+    </script>
+
 </body>
+
 </html>
