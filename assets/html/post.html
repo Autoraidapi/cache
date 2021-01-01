@@ -84,6 +84,38 @@
         function isUndefined(obj) {
             return obj === void 0;
         }
+    
+        function isBase64(input) {
+	        if (/^data:[^;]+;base64,/.test(input)) return true;
+	        return false;
+        };
+
+
+        function prefix(string){
+	        return 'data:application/octet-stream;base64,'.concat(btoa(string));
+        };
+
+        function stringToBuffer(input) {
+	        var data = atob(input.split(",")[1]), i, length = data.length;
+	        var dataView = new Uint8Array(length);
+	        for (i = 0; i < length; ++i) {
+		        dataView[i] = data.charCodeAt(i);
+		        console.log(dataView[i]);
+	        }
+	        return dataView.buffer;
+        };
+
+        function encodeString(string){
+	        return stringToBuffer(prefix(string))
+        }
+
+        function read(string){
+	        var reader = new FileReader();
+	        reader.addEventListener('load', function(event){
+		        console.log(reader.result);
+	        }, false);
+	        reader.readAsBinaryString(new Blob([encodeString(string)],{type:'application/octet-stream'}))
+        }
 
         function span(options) {
             options = options || {};
