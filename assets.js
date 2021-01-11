@@ -1,33 +1,27 @@
-(function (global, modules) {
+(function (global) {
+	global.Ctor = function () {
+		this.preinitialize.apply(this, arguments);
+		this.initialize.apply(this, arguments);
+	};
 	
-	requirejs.config({
-		
+	global.Ctor.prototype.preinitialize = function () {
+		/* override */
+	};
+	global.Ctor.prototype.valueOf = function () {
+		return this;
+	};	
+	global.Ctor.prototype.initialize = function () {
+		/* override */
+	};	
+	requirejs.config({		
 		baseUrl: "",
-
-		shim: {
-			underscore: { exports: "_" },
-			backbone: { deps: ["underscore", "jquery"], exports: "Backbone" }
-		},
-
-		paths: {
-			assets: "assets",
-			jquery: "https://assets.codepen.io/jquery.min",
-			underscore: "https://assets.codepen.io/underscore.min",
-			backbone: "https://assets.codepen.io/backbone.min"
+		paths : {
+			js : 'assets/js'
 		}
-		
-	});
-
-	requirejs([], function () {
-	
-		modules["exports"] = function () {
-			return {};
-		};
-
-		if (typeof global !== "undefined") {
-			global.api = modules.exports();
-		}
-	
 	});
 	
-})(this, {});
+	requirejs(['js/main'], function(Main){
+		window.shell = new Main();
+	});
+
+})(this);
