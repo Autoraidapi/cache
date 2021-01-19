@@ -1,68 +1,32 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en" manifest="manifest.cache">
 <head>
-	<meta charset="utf-8">
-	<title>Cache</title>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://assets.codepen.io/1674766/require.min.js" data-main="assets"></script>
+    <meta charset="utf-8" />
+    <title>Cache</title>
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
 </head>
-
+	
 <body>
 
-	<header></header>
+    <header></header>
 
-	<article></article>
+    <main>
+        <article>
+		<form onsubmit="return false;"><input type="search" id="search" name="search" placeholder="search" aria-label="search"></form>    
+	</article>
+    </main>
 
-	<footer></footer>
+    <footer></footer>
 
-	<script>
-		document.addEventListener('DOMContentLoaded', function (event) {
-
-			var searchString = window.location.search.substring(3);
-
-			switch (searchString) {
-
-				case 'app':
-				case 'apps':
-				case 'application':
-				case 'applications':
-					alert('Search : '.concat(searchString, ' \nFound : Applications'));
-					break;
-
-				case 'autoload':
-				case 'autoloader':
-				case 'autoloaders':
-					alert('searched for autoloaders');
-					break;
-
-				case 'print':
-					with(window.open('about:blank')) {
-						document.write('Hello World!');
-						document.close();
-					}
-					void 0;
-					break;
-
-				case 'setting':
-				case 'settings':
-					window.open('settings://');
-					break;
-
-				case 'transfer':
-				case 'transfers':
-					window.open('transfers://');
-					break;
-
-					// ?	
-				default:
-					return undefined;
-
-			}
-
+    <script>
+	(function(window){
+		document.addEventListener('DOMContentLoaded', function(event){
+			var search = window.location.search;
 		}, false);
-	</script>
+	})(window);	    
+    </script>
 
 </body>
 
