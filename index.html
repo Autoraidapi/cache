@@ -22,9 +22,18 @@
 
     <script>
 	(function(window){
+		
 		document.addEventListener('DOMContentLoaded', function(event){
 			var search = window.location.search;
 		}, false);
+		
+		window.addEventListener('load', function(event){
+			document.querySelector('form').addEventListener('submit', function(event){
+				event.preventDefault();
+				event.target.reset();
+			}, false);		
+		}, false);
+		
 	})(window);	    
     </script>
 
