@@ -7,25 +7,25 @@ A console log proxy has been added to log messages to the Document.
 
 - Store
 
-prototype method `testPending`
+instance method `testPending`
 
 - Model
 
-prototype method `testPending` call to Store.testPending.then
+instance method `testPending` call to Store.testPending.then
 
 - Template
 
-prototype method `testPending`
+instance method `testPending`
 
 - View
 
-prototype method `testPending` call to Template.testPending.then
+instance method `testPending` call to Template.testPending.then
 
 - Controller
 
-prototype method `test` resolves `Model.testPending` and `View.testPending` using Memoization 
+instance method `test` resolves `Model.testPending` and `View.testPending` using Memoization 
 
 
 - Main
 
-prototype method `test` linked to controller
+instance method `test` linked to controller
