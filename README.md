@@ -3,6 +3,8 @@ This is a deprecated api. Undesirable side effects may occur.
 
 ### Control Flow Test
 
+A console log proxy has been added to log messages to the Document.
+
 - Store
 
 prototype method `testPending`
