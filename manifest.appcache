@@ -2,11 +2,6 @@ CACHE MANIFEST
 
 # Revision 2020-12-30
 
-https://autoraidapi.github.io/cache/index.html
-https://autoraidapi.github.io/cache/favicon.ico
-https://assets.codepen.io/1674766/apple-touch-icon.png
-https://autoraidapi.github.io/cache/assets/css/bootstrap.css
-https://autoraidapi.github.io/cache/assets/js/bootstrap.js
-
 NETWORK:
-https://assets.codepen.io/1674766/inject.js
+
+FALLBACK:
