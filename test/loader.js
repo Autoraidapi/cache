@@ -24,7 +24,7 @@ function log() {
 }
 
 console.log = log;
-
+/*
 window.app = window.app || {};
 
 function loadScripts(){
@@ -113,13 +113,14 @@ function printReverse(arr){
 	}
 }
 
-var order = new Linked();
-order.push('assets/js/app.js');
-order.push('assets/js/controller.js');
-order.push('assets/js/view.js');
-order.push('assets/js/template.js');
-order.push('assets/js/model.js');
-order.push('assets/js/store.js');
+//var order = new Linked();
+//order.push('assets/js/app.js');
+//order.push('assets/js/controller.js');
+//order.push('assets/js/view.js');
+//order.push('assets/js/template.js');
+//order.push('assets/js/model.js');
+//order.push('assets/js/store.js');
 
 
-printReverse(order.print());
+//printReverse(order.print());
+*/
