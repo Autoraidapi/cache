@@ -16,22 +16,27 @@
 	<header>
 		<nav class="btn-group">
 			<a href="javascript:terminal.test(new Date())">Test Log Date</a>
+			<a href="javascript:testUint8('Hello World!')">Uint8 Test</a>
 			<button class="btn btn-dark btn-sm" id="btnStart" title="Connect">connect</button>
 			<button class="btn btn-dark btn-sm" id="btnStop" disabled>disconnect</button>
+		</nav>
+		<nav>
+			<pre id="pre"></pre>
+			<a class="btn btn-sm text-muted" href="#" id="logDisplay"></a>
 		</nav>
 	</header>
 
 	<main id="main" role="main" class="environment dev">
 
 		<article role="article">
-			<pre id="pre"></pre>
+			<pre></pre>
 		</article>
 
 	</main>
 
 	<footer>
 		<nav class="btn-group">
-			<a class="btn btn-sm text-muted" href="#" id="logDisplay"></a>
+
 		</nav>
 	</footer>
 

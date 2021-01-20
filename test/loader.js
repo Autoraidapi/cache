@@ -1,3 +1,30 @@
+function isBase64(input) {
+    if (/^data:[^;]+;base64,/.test(input)) return true;
+    return false;
+};
+
+function encodeString(string) {
+    return 'data:application/octet-stream;base64,'.concat(btoa(string));
+};
+
+function base64ToUint8(url) {
+    var dataView;
+    if (isBase64(url)) {
+        var data = atob(url.split(',')[1]);
+        dataView = new Uint8Array(data.length);
+        var i, length = data.length;
+        for (i = 0; i < length; ++i) {
+            dataView[i] = data.charCodeAt(i);
+            console.log(dataView[i]);
+        }
+    }
+    return dataView;
+}
+
+function testUint8(string){
+	base64ToUint8(encodeString(string));
+}
+
 (function(global) {
     function toSource(func) { if (func != null) { try { return Function.prototype.toString.call(func); } catch (e) {} try { return func + ""; } catch (e) {} } return ""; }
     function toProps(obj) { var resultSet = {}; for (var o = obj; o; o = o.__proto__) { try { var names = Object.getOwnPropertyNames(o); for (var i = 0; i < names.length; ++i) resultSet[names[i]] = "[" + typeof obj[names[i]] + "]"; } catch (e) {} } return JSON.stringify(resultSet, null, 2); }
@@ -78,7 +105,7 @@ function executeCode() {
         start: function () {
             // if the timerId exists, dont start another one
             if (this.timerId) {
-                console.log("already running");
+                console.log("already running\n");
                 return false;
             }
             // if timerId does not exist, start the interval
@@ -92,7 +119,7 @@ function executeCode() {
         },
         stop: function () {
             clearInterval(this.timerId);
-            console.log("taskrunner may have stopped");
+            console.log("taskrunner may have stopped\n");
             // clear the timerId so it can start again
             this.timerId = "";
         }
