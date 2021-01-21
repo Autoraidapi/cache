@@ -30,10 +30,12 @@
 		
 		.catch(function(er){
 			console.error(er)
+		})
+
+		.then(function(){
+
 		});
-
-		// memoize and return on call
-
+	
 		return execute;
 	};
 

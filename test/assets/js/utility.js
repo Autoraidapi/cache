@@ -1,11 +1,5 @@
-
-
-_ = function (object) {
-    if (object instanceof _) return obj;
-    if (!(this instanceof _)) return new _(obj);
-    this._wrapped = obj;
-};
 window._ = (function (_) {
+    
     _.defaults = function (object) {
         if (!object) {
             return object;

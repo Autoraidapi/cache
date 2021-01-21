@@ -45,10 +45,7 @@
 
 	function Generator() {
 		this.preinitialize.apply(this, arguments);
-		this.name = '';
-		this.id = '';
-		this.version = '';
-		this.domain = '';
+
 		this.initialize.apply(this, arguments);
 	};
 

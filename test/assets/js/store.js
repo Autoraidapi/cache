@@ -2,21 +2,11 @@
 (function (window) {
 	'use strict';
 
-	// do not mix into view
-	function Store(name, callback) {
+	function Store(name) {
 		Ctor.call(this);
-		callback = callback || function () {};
-
 		this._dbName = name;
 
-		if (!localStorage.getItem(name)) {
-			var todos = [];
-
-			localStorage.setItem(name, JSON.stringify(todos));
-		}
-
-		callback.call(this, JSON.parse(localStorage.getItem(name)));
-	}
+	};
 
 	Store.prototype = Object.create(Ctor.prototype, {
 		constructor : {
@@ -27,13 +17,10 @@
 		}
 	});
 	
-	Store.prototype = {    
-
-        /** @return {string} */
+	Store.prototype = {
         get name(){
             return this._dbName;
         },
-    
         set name(x){
             this._dbName = x;
         }
