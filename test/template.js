@@ -4,19 +4,21 @@
 
 	function Template() {
 		Ctor.call(this);
-	}
+	};
+
 	Template.prototype = Object.create(Ctor.prototype, {
 		constructor : {
-			value : Template,
-			writeable : true,
 			configurable : true,
-			enumerable : true			
+			enumerable : true,
+			value : Template,
+			writeable : true
 		}
-	})
+	});
 	
 	Template.prototype.preinitialize = function () {
 		console.log(5)
 	};
+
 	Template.prototype.testPending = function (str) {
 		return new Promise(function(resolve, reject){
 			if(str){
@@ -26,10 +28,12 @@
 				reject('not enough arguments');
 			}
 		});
-	};	
+	};
+
 	Template.prototype.initialize = function () {
 		console.log(6)
-	};	
+	};
+		
 	window.app = window.app || {};
 	window.app.Template = Template;
 

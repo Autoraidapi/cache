@@ -1,11 +1,10 @@
-/*jshint eqeqeq:false */
 (function (window) {
+
 	'use strict';
 
 	function Store(name) {
 		Ctor.call(this);
 		this._dbName = name;
-
 	};
 
 	Store.prototype = Object.create(Ctor.prototype, {
@@ -27,7 +26,7 @@
     };
     	
 	Store.prototype.preinitialize = function () {
-		console.log(1)
+		console.log(1);
 	};
 
 	Store.prototype.testPending = function (str) {
@@ -41,12 +40,10 @@
 		});
 	};
 
-
 	Store.prototype.initialize = function () {
-		console.log(2)
+		console.log(2);
 	};
 	
-	// Export to window
 	window.app = window.app || {};
 	window.app.Store = Store;
 	

@@ -2,43 +2,43 @@
 	
 	'use strict';
 	
-	
-	// handles model for the view
 	function Controller(model, view) {
 		Ctor.call(this, arguments);
 		var self = this;
 		self.model = model;
 		self.view = view;
-
-	}
+		self.view.bind('click', function(){
+			
+		})
+	};
+	
 	Controller.prototype = Object.create(Ctor.prototype, {
 		constructor : {
-			value : Controller,
-			writeable : true,
 			configurable : true,
-			enumerable : true			
+			enumerable : true,
+			value : Controller,
+			writeable : true
 		}
-	})
+	});
 	
-	Controller.prototype.preinitialize = function (options) {
-		this.options = (options || {});
-		console.log(9)
+	Controller.prototype.preinitialize = function () {
+		console.log(9);
 	};	
 	
-	Controller.prototype.setView = function () {};
+	Controller.prototype.setView = function () {
+
+	};
 	
 	Controller.prototype.test = function(str){
 		var self = this;
-		// returns traceable 
-
-		var x = _.memoize(function(){
+		var memo = _.memoize(function(){
 			return {
 				model : self.model.testPending(str),
 				view : self.view.testPending(str)
 			}
 		})
-		console.log(x.prototype)
-		x();
+		console.log(memo.prototype, memo.constructor);
+		memo();
 	}
 
 	Controller.prototype.initialize = function () {
