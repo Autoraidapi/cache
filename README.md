@@ -6,23 +6,27 @@ This is a deprecated api. Undesirable side effects may occur.
 
 ## Constructor
 
-instance methods apply directly to the constructor, to benefit from this requires some trust
+composition of instance methods apply directly to the constructor
 
 ```javascript
-function Constructor(){
+function Ctor(){
     preinitialize.apply(this, arguments);
     initialize.apply(this, arguments);
 };
 ```
 
-serialization of circular references is possible if prototype methods are shared with a constructor function
+setup for serialization
 
 ```javascript
-Constructor.prototype.valueOf = function(){
+Ctor.prototype.valueOf = function(){
     return this;
 };
-function Sync(){};
-Sync.prototype = Object.create(Constructor.prototype, {
+
+function Sync(name){
+    // Ctor.call(this); name  
+    this.name = name;
+};
+Sync.prototype = Object.create(Ctor.prototype, {
     constructor : {
         configurable : true,
         enumerable : true, // 
@@ -30,9 +34,72 @@ Sync.prototype = Object.create(Constructor.prototype, {
         writeable : true
     }
 });
-var test = new Sync();
-// test.constructor  Sync
-// test.prototype  {}
+
+function Model(sync){
+    this.sync = sync;
+};
+Model.prototype = Object.create(Ctor.prototype, {
+    constructor : {
+        configurable : true,
+        enumerable : true, // 
+        value : Model,
+        writeable : true
+    }
+});
+
+function Controller(model){
+    var self = this;
+    // model shares this with view
+    self.model = model;
+};
+Controller.prototype = Object.create(Ctor.prototype, {
+    constructor : {
+        configurable : true,
+        enumerable : true, // 
+        value : Controller,
+        writeable : true
+    }
+});
+```
+
+application instance, circular references will serialize to JSON
+
+```javascript
+function Main(name){
+    this.sync= new Sync(name);
+    this.model = new Model(this.sync);
+    this.controller = new Controller(this.model);
+};
+Main.prototype = Object.create(Ctor.prototype, {
+    constructor : {
+        configurable : true,
+        enumerable : true, // 
+        value : Main,
+        writeable : true
+    }
+});
+
+window.app = new Main('App');
+
+console.log(JSON.stringify(app.valueOf(),null,2));
+
+{
+  "sync": {
+    "name": "App"
+  },
+  "model": {
+    "sync": {
+      "name": "App"
+    }
+  },
+  "controller": {
+    "model": {
+      "sync": {
+        "name": "App"
+      }
+    }
+  }
+}
 ```
 
 ### Control Flow Test
