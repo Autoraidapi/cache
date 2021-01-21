@@ -1,23 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        iframe { width : 100%; height : 300px; }
-    </style>
+    <style>#iframe{width:100%;}</style>
 </head>
-
 <body>
-
-    <p id="output">...</p>
 
     <form id="form">
         <label for="input">Send</label>
-        <input type="text" id="input" autocomplete="off" autofocus>
+        <input type="text" id="input" autocomplete="off">
         <button id="button">Submit</button>
     </form>
 
@@ -25,16 +18,28 @@
 
     <iframe id="iframe" src="./port2.html"></iframe>
 
+    <hr>
+
+    <p id="output">...</p>
+
     <script>
 
         function View() {
-            this.channel = new MessageChannel();
-            this.port1 = this.channel.port1;
+            this.preinitialize.apply(this, arguments);
             this.output = document.getElementById('output');
             this.input = document.getElementById('input');
             this.iframe = document.getElementById('iframe');
             this.button = document.getElementById('button');
             this.form = document.getElementById('form');
+            this.initialize.apply(this,arguments);
+        };
+        
+        View.prototype.preinitialize = function(){
+            this.channel = new MessageChannel();
+            this.port1 = this.channel.port1;
+        };
+
+        View.prototype.initialize = function(){
             this.port1.onmessage = function (event) {
                 view.output.innerHTML = event.data;
                 view.input.value = '';
@@ -48,12 +53,12 @@
             }, false);
             this.iframe.addEventListener("load", function (event) {
                 this.contentWindow.postMessage('init', '*', [view.channel.port2]);
-            }, false);            
+            }, false); 
         }
 
-        const view = new View();
-
+        window.view = new View();
+        
     </script>
-</body>
 
+</body>
 </html>
