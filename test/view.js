@@ -75,7 +75,7 @@
 		}
 		else {
 			self.timerId = setInterval(function () {
-				console.log('@interval:'+self.timerId);
+				console.log(window.main.test(Date.now()));
 			}, 1000);
 		}
 	};
