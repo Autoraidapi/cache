@@ -1,5 +1,51 @@
-window._ = (function (_) {
+(function (global) {
     
+    function Ctor(){
+        this.preinitialize.apply(this,arguments);
+        this.initialize.apply(this,arguments);
+    };
+    
+    Ctor.prototype.preinitialize = function(){
+        /* Override */
+    };
+    
+    Ctor.prototype.valueOf = function(){
+            return this;
+    };
+    
+    Ctor.prototype.initialize = function(){
+        /* Override */
+    };
+
+    function _(object) {
+        if (object instanceof _) return object;
+        if (!(this instanceof _)) return new _(object);
+    }
+
+    global.Ctor = Ctor;
+    global._ = _;
+    
+    var ObjProto = Object.prototype;
+    var hasOwn = ObjProto.hasOwnProperty;
+
+    var has = function (object, key) {
+        return object != null && hasOwn.call(object, key);
+    };
+
+    var identity = function (object) {
+        return object;
+    };
+
+    _.memoize = function (callback, address) {
+        var cache = {},
+            key;
+        address || (address = identity);
+        return function () {
+            key = address.apply(this, arguments);
+            return has(cache, key) ? cache[key] : (cache[key] = callback.apply(this, arguments));
+        };
+    };
+
     _.defaults = function (object) {
         if (!object) {
             return object;
@@ -104,7 +150,11 @@ window._ = (function (_) {
         template.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
 
         return template;
+
     };
 
-    return _;
-})({});
+    _.prototype.valueOf = function () {
+        return this;
+    };
+
+}.call(this));
