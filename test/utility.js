@@ -1,4 +1,7 @@
-(function (global) {
+
+(function () {
+    
+    var root = this;
     
     function Ctor(){
         this.preinitialize.apply(this,arguments);
@@ -20,10 +23,10 @@
     function _(object) {
         if (object instanceof _) return object;
         if (!(this instanceof _)) return new _(object);
-    }
+    };
 
-    global.Ctor = Ctor;
-    global._ = _;
+    root.Ctor = Ctor;
+    root._ = _;
     
     var ObjProto = Object.prototype;
     var hasOwn = ObjProto.hasOwnProperty;

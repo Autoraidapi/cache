@@ -30,14 +30,18 @@
 	};
 	
 	Controller.prototype.test = function(str){
+		
 		var self = this;
+		
 		var memo = _.memoize(function(){
 			return {
 				model : self.model.testPending(str),
 				view : self.view.testPending(str)
 			}
 		})
-		console.log(memo.prototype, memo.constructor);
+		
+		console.log(memo.prototype);
+
 		memo();
 	}
 
