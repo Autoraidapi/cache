@@ -2,7 +2,6 @@
 
     'use strict';
 
-
     window.qs = function (selector, scope) {
         return (scope || document).querySelector(selector);
     };

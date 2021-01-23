@@ -40,8 +40,7 @@
     };
 
     _.memoize = function (callback, address) {
-        var cache = {},
-            key;
+        var cache = {}, key;
         address || (address = identity);
         return function () {
             key = address.apply(this, arguments);
