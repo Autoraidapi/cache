@@ -3,9 +3,7 @@ CACHE MANIFEST
 
 CACHE:
 index.html
-images/web.jpg
-images/background.png
-css/style.css
+
 
 # Require the user to be online.
 NETWORK:
