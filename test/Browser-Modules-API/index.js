@@ -65,6 +65,8 @@ function loadScripts(){
     });
 }
 
+// load linked libraries
+
 function init(){
     [
         'window', 
@@ -82,57 +84,11 @@ function init(){
     });
 }
 
-//init = Memoize(init);
+init = Memoize(init);
 
 var test2 = Memoize(function(){
     loadScripts('window/index');
 })
 
-//x();
-//setTimeout(init, 1);
+setTimeout(init, 1);
 
-/*
-
-
-
-js.plugins.loadJSON = function(){    
-    function request(url, onload, onerror){
-        const request = new XMLHttpRequest();
-        request.open('GET', url.concat('.json'));
-        request.onload = onload;
-        request.onerror = onerror || onload;    
-    }
-    function jsonLoad(){}
-    function jsonError(){}
-    [].slice.call(arguments).forEach(function(string){
-        request(string, jsonLoad, jsonError);
-    });    
-};
-
-js.plugins.loadScripts = function(){
-    function scriptNode(src, onload, onerror){
-        var script = document.createElement('script');
-        script.src = src + '.js';
-        script.onload = onload;
-        script.onerror = onerror || onload;
-        return document.head.appendChild(script);
-    }
-    function scriptLoad(){}
-    function scriptError(){}
-    [].slice.call(arguments).forEach(function(string){
-        scriptNode(string, scriptLoad, scriptError);
-    });
-};
-
-(function(){
-
-    function initialize(){
-        ['window'].forEach(function(script){
-            js.plugins.loadScripts(script.concat('/index'));
-        });
-    }
-
-    setTimeout(initialize, 1);
-
-})();
-*/
