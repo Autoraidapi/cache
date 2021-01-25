@@ -82,9 +82,14 @@ function init(){
     });
 }
 
-init = Memoize(init);
+//init = Memoize(init);
 
-setTimeout(init, 1);
+var test2 = Memoize(function(){
+    loadScripts('window/index');
+})
+
+//x();
+//setTimeout(init, 1);
 
 /*
 
