@@ -4,6 +4,8 @@
 
 This is a deprecated api. Undesirable side effects may occur.
 
+How to serialize circular references for a json snapshot.
+
 ## Constructor
 
 composition of instance methods apply directly to the constructor
@@ -130,3 +132,9 @@ instance method `test` resolves `Model.testPending` and `View.testPending` using
 - Main
 
 instance method `test` linked to controller
+
+---
+
+Next, deriving specific properties and serializing the rest for a whole image.
+
+
